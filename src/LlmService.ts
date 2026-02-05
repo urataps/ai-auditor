@@ -26,4 +26,12 @@ export class LlmService {
       attackContract: codeResponse.text,
     };
   }
+
+  // get docs per level
+
+  // get source code per level
+
+  // setup level instance
+
+  // validate level instance
 }
