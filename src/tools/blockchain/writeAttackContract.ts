@@ -11,11 +11,11 @@ export const writeAttackContractTool = tool(
         filename = `${filename}.sol`;
       }
 
-      const filePath = path.join(CONFIG.ATTACKS_DIR, filename);
+      const filePath = path.join(CONFIG.COMPILER_SRC_DIR, filename);
 
-      // Ensure attacks directory exists
-      if (!fs.existsSync(CONFIG.ATTACKS_DIR)) {
-        fs.mkdirSync(CONFIG.ATTACKS_DIR, { recursive: true });
+      // Ensure src directory exists
+      if (!fs.existsSync(CONFIG.COMPILER_SRC_DIR)) {
+        fs.mkdirSync(CONFIG.COMPILER_SRC_DIR, { recursive: true });
       }
 
       fs.writeFileSync(filePath, sourceCode, "utf-8");
@@ -35,7 +35,7 @@ export const writeAttackContractTool = tool(
   {
     name: "write_attack_contract",
     description:
-      'Writes a Solidity attack contract to the ethernaut/contracts/src/attacks/ directory. The contract can import target level contracts and OpenZeppelin libraries. Always provide complete valid Solidity source code including pragma and imports.',
+      "Writes a Solidity attack contract to the compiler working directory. The contract has access to forge-std. Always provide complete valid Solidity source code including pragma and imports.",
     schema: z.object({
       filename: z
         .string()

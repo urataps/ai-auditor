@@ -15,8 +15,7 @@ export const deployContractTool = tool(
     try {
       const name = contractName.replace(".sol", "");
       const artifactPath = path.join(
-        CONFIG.ETHERNAUT_CONTRACTS_DIR,
-        "out",
+        CONFIG.COMPILER_OUT_DIR,
         `${name}.sol`,
         `${name}.json`
       );
@@ -35,7 +34,8 @@ export const deployContractTool = tool(
       if (!bytecode) {
         return JSON.stringify({
           success: false,
-          error: "No bytecode found in artifact. Is this an interface or abstract contract?",
+          error:
+            "No bytecode found in artifact. Is this an interface or abstract contract?",
         });
       }
 
@@ -74,7 +74,9 @@ export const deployContractTool = tool(
     schema: z.object({
       contractName: z
         .string()
-        .describe('Contract name matching the .sol filename (e.g., "MyAttack")'),
+        .describe(
+          'Contract name matching the .sol filename (e.g., "MyAttack")'
+        ),
       constructorArgs: z
         .string()
         .optional()

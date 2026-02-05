@@ -138,10 +138,8 @@ ${ctx.factorySource}
 - Deploy Funds sent: ${ctx.levelInfo.deployFunds} ETH
 
 == AVAILABLE IMPORTS ==
-Your attack contract is placed in ethernaut/contracts/src/attacks/ and can import:
-- "../levels/${ctx.levelInfo.instanceContract}" for the target contract interface
-- "forge-std/..." for forge standard library
-- "openzeppelin-contracts-08/..." for OpenZeppelin v0.8 contracts
+Your attack contract is compiled in a standalone Foundry project. You can import:
+- "forge-std/..." for forge standard library (e.g., "forge-std/Test.sol")
 
-NOTE: If the target uses an older Solidity version, define an inline interface rather than importing directly.`;
+For interacting with the target contract, define an inline interface in your attack contract with the functions you need to call. Do NOT try to import the target contract directly.`;
 }

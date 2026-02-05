@@ -9,36 +9,32 @@ export const compileContractTool = tool(
   async ({ contractName }): Promise<string> => {
     try {
       let stdout: string;
-      let stderr: string;
 
       try {
         stdout = execSync("forge build", {
-          cwd: CONFIG.ETHERNAUT_CONTRACTS_DIR,
+          cwd: CONFIG.COMPILER_ENV_DIR,
           encoding: "utf-8",
           timeout: 120000,
           maxBuffer: 10 * 1024 * 1024,
         });
-        stderr = "";
       } catch (error: unknown) {
         const execError = error as {
           stdout?: string;
           stderr?: string;
           status?: number;
         };
-        stdout = execError.stdout || "";
-        stderr = execError.stderr || String(error);
+        const stderr = execError.stderr || String(error);
 
         return JSON.stringify({
           success: false,
-          errors: stderr || stdout,
+          errors: stderr || execError.stdout || "Unknown compilation error",
         });
       }
 
       // Check that the compiled artifact exists
       const name = contractName.replace(".sol", "");
       const artifactPath = path.join(
-        CONFIG.ETHERNAUT_CONTRACTS_DIR,
-        "out",
+        CONFIG.COMPILER_OUT_DIR,
         `${name}.sol`,
         `${name}.json`
       );
@@ -65,7 +61,7 @@ export const compileContractTool = tool(
   {
     name: "compile_contract",
     description:
-      "Compiles all contracts in the Ethernaut project using forge build. Returns compilation errors if any, or confirms the artifact exists for the specified contract.",
+      "Compiles contracts in the working directory using forge build. Returns compilation errors if any, or confirms the artifact exists for the specified contract.",
     schema: z.object({
       contractName: z
         .string()
