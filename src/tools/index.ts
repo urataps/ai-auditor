@@ -11,6 +11,9 @@ import { getContractSourceTool, getLevelContractsTool } from './getContractSourc
 import { getLevelDocsTool } from './getLevelDocs';
 import { getDeploymentAddressTool, getAllDeploymentsTool } from './getDeploymentAddress';
 
+// Blockchain interaction tools
+export { blockchainTools } from './blockchain/index';
+
 // All tools bundled for easy agent binding
 export const ethernautTools = [
   getLevelInfoTool,

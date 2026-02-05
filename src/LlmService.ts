@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 
 import { attackPlaner } from "./agents/attack-planer";
 import { attackContractAgent } from "./agents/attack-contract";
+import { playLevel, type PlayResult } from "./services/playerService";
 
 dotenv.config();
 
@@ -27,11 +28,8 @@ export class LlmService {
     };
   }
 
-  // get docs per level
-
-  // get source code per level
-
-  // setup level instance
-
-  // validate level instance
+  @GenezioMethod()
+  async playLevel(levelId: string): Promise<PlayResult> {
+    return playLevel(levelId);
+  }
 }
