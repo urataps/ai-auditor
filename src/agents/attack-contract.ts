@@ -5,6 +5,7 @@ import {
 } from "@langchain/core/prompts";
 import { ChatOpenAI } from "@langchain/openai";
 import { RunnableSequence } from "@langchain/core/runnables";
+import { CONFIG } from "../config";
 
 export function attackContractAgent() {
   const systemMsg = `You are an expert Solidity developer generating exploit contracts for the Ethernaut CTF wargame.
@@ -37,8 +38,8 @@ Output ONLY valid Solidity source code. No markdown, no explanations, no code fe
   ]);
 
   const model = new ChatOpenAI({
-    temperature: 0.2,
-    modelName: "gpt-4",
+    temperature: CONFIG.TEMPERATURE,
+    modelName: CONFIG.MODEL_NAME,
   });
 
   return RunnableSequence.from([prompt, model]);

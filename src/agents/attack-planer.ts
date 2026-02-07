@@ -5,6 +5,7 @@ import {
 } from "@langchain/core/prompts";
 import { ChatOpenAI } from "@langchain/openai";
 import { RunnableSequence } from "@langchain/core/runnables";
+import { CONFIG } from "../config";
 
 export function attackPlaner() {
   const systemMsg = `You are a smart contract security expert participating in the Ethernaut CTF wargame.
@@ -40,8 +41,8 @@ Guidelines:
   ]);
 
   const model = new ChatOpenAI({
-    temperature: 0.2,
-    modelName: "gpt-4",
+    temperature: CONFIG.TEMPERATURE,
+    modelName: CONFIG.MODEL_NAME,
   });
 
   return RunnableSequence.from([prompt, model]);

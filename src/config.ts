@@ -18,21 +18,18 @@ export const CONFIG = {
   GAME_DATA_DIR: path.resolve(__dirname, "./game-data/ethernaut"),
   DEPLOY_LOCAL_PATH: path.resolve(
     __dirname,
-    "./game-data/ethernaut/deploy.local.json"
+    "./game-data/ethernaut/deploy.local.json",
   ),
-  GAMEDATA_PATH: path.resolve(
-    __dirname,
-    "./game-data/ethernaut/gamedata.json"
-  ),
+  GAMEDATA_PATH: path.resolve(__dirname, "./game-data/ethernaut/gamedata.json"),
   CONTRACTS_SOURCE_PATH: path.resolve(
     __dirname,
-    "./game-data/ethernaut/contracts"
+    "./game-data/ethernaut/contracts",
   ),
   DOCS_PATH: path.resolve(__dirname, "./game-data/ethernaut/docs"),
 
   // Agent config
   MAX_ITERATIONS: 15,
-  MODEL_NAME: "gpt-4",
+  MODEL_NAME: "gpt-4.1",
   TEMPERATURE: 0.2,
 
   // Server
