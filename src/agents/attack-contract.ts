@@ -7,26 +7,29 @@ import { ChatOpenAI } from "@langchain/openai";
 import { RunnableSequence } from "@langchain/core/runnables";
 
 export function attackContractAgent() {
-  const systemMsg = `
-  You are an expert Solidity developer and smart contract auditor participating in a CTF competition.
-  
-  You will receive:
-  1. A description of the challenge
-  2. The source code of a vulnerable Solidity contract
-  3. An explanation of how the vulnerability works and a step-by-step attack plan.
-  
-  Your task is to generate a minimal **attack contract** that uses the explained vulnerability to exploit the target contract.
-  
-  Requirements:
-  - Use the same Solidity version as the target (or higher if required by syntax)
-  - Interact directly with the vulnerable contract to execute the exploit
-  - The contract should have a public \`attack()\` function
-  - Do not include explanations or comments unless they are strictly necessary
-  
-  Output ONLY valid Solidity code, nothing else.
-  `;
+  const systemMsg = `You are an expert Solidity developer generating exploit contracts for the Ethernaut CTF wargame.
 
-  const userMsg = `Description: {description}\n\nCode:\n{code}\n\nExplanation:\n{explanation}`;
+You will receive:
+1. The full level context (target contract source, factory/validation logic, deployment info)
+2. An attack plan explaining the vulnerability and exploitation strategy
+
+Your task: Generate a minimal Solidity attack contract that exploits the vulnerability.
+
+Requirements:
+- Use pragma solidity ^0.8.0 (or match the target contract's version if it requires a specific version).
+- **Prefer executing the entire exploit in the constructor.** The attack contract should:
+  - Accept the target instance address as a constructor parameter.
+  - Execute all exploit logic in the constructor body.
+  - This way, simply deploying the contract performs the attack — no separate function call needed.
+- If a constructor-only attack is not possible, add a public attack() function and explain why in a brief comment.
+- Define inline interfaces for any target contract functions you need to call. Do NOT import the target contract directly.
+- The contract is compiled in a standalone Foundry project. You may import from "forge-std/..." if needed (e.g., console.sol for debugging), but this is rarely necessary.
+- If the attack requires sending ETH to the target, make the constructor payable.
+- Keep the contract minimal — no unnecessary code, comments, or explanations.
+
+Output ONLY valid Solidity source code. No markdown, no explanations, no code fences.`;
+
+  const userMsg = `Level context:\n{context}\n\nAttack plan:\n{plan}`;
 
   const prompt = ChatPromptTemplate.fromMessages([
     SystemMessagePromptTemplate.fromTemplate(systemMsg),

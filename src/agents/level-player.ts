@@ -18,7 +18,6 @@ WORKFLOW:
 3. Write a Solidity attack contract using the write_attack_contract tool.
    - Use pragma solidity ^0.8.0 (or match the target contract's version).
    - Define inline interfaces for any target contract functions you need to call (do NOT import from external paths).
-   - You can import from "forge-std/..." for forge standard library.
    - Your contract should have a public attack() function (or constructor-based attack if needed).
    - The constructor should accept the target instance address.
 4. Compile the contract using compile_contract. If there are errors, fix them and recompile.
@@ -42,7 +41,7 @@ IMPORTANT RULES:
 export function createLevelPlayerAgent(
   levelContext: string,
   instanceAddress: string,
-  playerAddress: string
+  playerAddress: string,
 ): AgentExecutor {
   const llm = new ChatOpenAI({
     temperature: CONFIG.TEMPERATURE,
@@ -73,12 +72,12 @@ export async function runLevelPlayer(
   levelContext: string,
   levelName: string,
   instanceAddress: string,
-  playerAddress: string
+  playerAddress: string,
 ): Promise<{ output: string; intermediateSteps: unknown[] }> {
   const executor = createLevelPlayerAgent(
     levelContext,
     instanceAddress,
-    playerAddress
+    playerAddress,
   );
 
   const result = await executor.invoke({
