@@ -133,9 +133,6 @@ ${ctx.factorySource}
 == DEPLOYMENT INFO ==
 - Ethernaut Contract: ${ctx.ethernautAddress}
 - Factory Address: ${ctx.factoryAddress}
-- Level Instance Address: ${ctx.instanceAddress}
-- Player Address (your EOA): ${ctx.playerAddress}
-- Deploy Funds sent: ${ctx.levelInfo.deployFunds} ETH
 
 For interacting with the target contract, define an inline interface in your attack contract with the functions you need to call. Do NOT try to import the target contract directly.`;
 }

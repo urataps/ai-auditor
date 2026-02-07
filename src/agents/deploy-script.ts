@@ -27,6 +27,7 @@ Foundry Script pattern:
 Requirements:
 - Use pragma solidity ^0.8.13
 - Create a address variable for the target instance address and set it to the provided instance address
+- Use interfaces from the source contract if needed. Do NOT create new ones with the same name.
 - Deploy the attack contract with the correct constructor arguments, use typecasting if needed, match the types exactly so there are no compilation issues
 - If the constructor is payable, send the required ETH during deployment using correct syntax 
 - If the attack contract has post-deployment functions that need calling (e.g., attack()), call them after deployment

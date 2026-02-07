@@ -23,10 +23,10 @@ Requirements:
   - Execute all exploit logic in the constructor body.
   - This way, simply deploying the contract performs the attack — no separate function call needed.
 - If a constructor-only attack is not possible, add a public attack() function and explain why in a brief comment.
-- Define inline interfaces for any target contract functions you need to call. Do NOT import the target contract directly.
+- Define inline interfaces at beginning of file for any target contract functions you need to call. Do NOT import the target contract directly.
 - The contract is compiled in a standalone Foundry project. You may import from "forge-std/..." if needed (e.g., console.sol for debugging), but this is rarely necessary.
 - If the attack requires sending ETH to the target, make the constructor payable.
-- Keep the contract minimal — no unnecessary code, comments, or explanations.
+- Keep the contract minimal — no unnecessary code, but add small comments explaining each step of the exploit.
 
 Output ONLY valid Solidity source code. No markdown, no explanations, no code fences.`;
 

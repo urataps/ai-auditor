@@ -29,8 +29,8 @@ export const CONFIG = {
 
   // Agent config
   MAX_ITERATIONS: 15,
-  MODEL_NAME: "gpt-4.1",
-  TEMPERATURE: 0.2,
+  MODEL_NAME: "gpt-5-mini",
+  TEMPERATURE: 1,
 
   // Server
   PORT: 3001,
