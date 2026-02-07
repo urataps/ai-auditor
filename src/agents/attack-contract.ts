@@ -16,7 +16,7 @@ You will receive:
 Your task: Generate a minimal Solidity attack contract that exploits the vulnerability.
 
 Requirements:
-- Use pragma solidity ^0.8.0 (or match the target contract's version if it requires a specific version).
+- Use pragma solidity ^0.8.13.
 - **Prefer executing the entire exploit in the constructor.** The attack contract should:
   - Accept the target instance address as a constructor parameter.
   - Execute all exploit logic in the constructor body.
