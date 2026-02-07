@@ -20,7 +20,7 @@ function getEthernautContract(address: string): ethers.Contract {
 export async function createLevelInstance(
   ethernautAddress: string,
   factoryAddress: string,
-  deployFunds: number
+  deployFunds: number,
 ): Promise<string> {
   const ethernaut = getEthernautContract(ethernautAddress);
 
@@ -33,8 +33,14 @@ export async function createLevelInstance(
   const iface = new ethers.Interface(ETHERNAUT_ABI);
   for (const log of receipt.logs) {
     try {
-      const parsed = iface.parseLog({ topics: log.topics as string[], data: log.data });
+      const parsed = iface.parseLog({
+        topics: log.topics as string[],
+        data: log.data,
+      });
       if (parsed && parsed.name === "LevelInstanceCreatedLog") {
+        console.log(
+          `Level instance created: ${parsed.args.instance} for level ${parsed.args.level}`,
+        );
         return parsed.args.instance;
       }
     } catch {
@@ -43,13 +49,13 @@ export async function createLevelInstance(
   }
 
   throw new Error(
-    "Failed to extract instance address from LevelInstanceCreatedLog event"
+    "Failed to extract instance address from LevelInstanceCreatedLog event",
   );
 }
 
 export async function submitLevelInstance(
   ethernautAddress: string,
-  instanceAddress: string
+  instanceAddress: string,
 ): Promise<boolean> {
   const ethernaut = getEthernautContract(ethernautAddress);
 
@@ -60,7 +66,10 @@ export async function submitLevelInstance(
   const iface = new ethers.Interface(ETHERNAUT_ABI);
   for (const log of receipt.logs) {
     try {
-      const parsed = iface.parseLog({ topics: log.topics as string[], data: log.data });
+      const parsed = iface.parseLog({
+        topics: log.topics as string[],
+        data: log.data,
+      });
       if (parsed && parsed.name === "LevelCompletedLog") {
         return true;
       }
