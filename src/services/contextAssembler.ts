@@ -35,13 +35,13 @@ function findLevelInfo(levelId: string): LevelInfo {
   }
   if (!level) {
     level = gameData.levels.find(
-      (l) => l.name.toLowerCase() === levelId.toLowerCase()
+      (l) => l.name.toLowerCase() === levelId.toLowerCase(),
     );
   }
   if (!level) {
     const available = gameData.levels.map((l) => `${l.deployId}: ${l.name}`);
     throw new Error(
-      `Level not found: ${levelId}. Available: ${available.join(", ")}`
+      `Level not found: ${levelId}. Available: ${available.join(", ")}`,
     );
   }
   return level;
@@ -92,7 +92,7 @@ export function assembleLevelContext(levelId: string): LevelContext {
   const factoryAddress = deployment[levelInfo.deployId];
   if (!factoryAddress) {
     throw new Error(
-      `No deployment address for level ${levelInfo.deployId} (${levelInfo.name})`
+      `No deployment address for level ${levelInfo.deployId} (${levelInfo.name})`,
     );
   }
 
@@ -136,10 +136,6 @@ ${ctx.factorySource}
 - Level Instance Address: ${ctx.instanceAddress}
 - Player Address (your EOA): ${ctx.playerAddress}
 - Deploy Funds sent: ${ctx.levelInfo.deployFunds} ETH
-
-== AVAILABLE IMPORTS ==
-Your attack contract is compiled in a standalone Foundry project. You can import:
-- "forge-std/..." for forge standard library (e.g., "forge-std/Test.sol")
 
 For interacting with the target contract, define an inline interface in your attack contract with the functions you need to call. Do NOT try to import the target contract directly.`;
 }

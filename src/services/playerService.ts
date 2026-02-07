@@ -64,7 +64,7 @@ export async function playLevel(levelId: string): Promise<PlayResult> {
   const context = assembleLevelContext(levelId);
   const contextString = formatContextForPrompt(context);
   console.log(
-    `[Pipeline] Level: ${context.levelInfo.name} (ID: ${context.levelInfo.deployId})`
+    `[Pipeline] Level: ${context.levelInfo.name} (ID: ${context.levelInfo.deployId})`,
   );
 
   // Step 2: Plan the attack
@@ -76,6 +76,7 @@ export async function playLevel(levelId: string): Promise<PlayResult> {
       ? planResult.content
       : JSON.stringify(planResult.content);
   console.log("[Pipeline] Plan generated.");
+  console.log(`[Pipeline] Plan:\n${plan}`);
 
   // Step 3: Generate attack contract
   console.log("[Pipeline] Generating attack contract...");
@@ -90,12 +91,13 @@ export async function playLevel(levelId: string): Promise<PlayResult> {
       : JSON.stringify(contractResult.content);
   const contractCode = extractSolidity(rawCode);
   console.log("[Pipeline] Contract generated.");
+  console.log(`[Pipeline] Contract Code:\n${contractCode}`);
 
   // Step 4: Compile
   console.log("[Pipeline] Compiling...");
   const compilation = compileContract(contractCode);
   console.log(
-    `[Pipeline] Compilation: ${compilation.success ? "SUCCESS" : "FAILED"}`
+    `[Pipeline] Compilation: ${compilation.success ? "SUCCESS" : "FAILED"}`,
   );
 
   return {
