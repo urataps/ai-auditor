@@ -29,8 +29,8 @@ export const CONFIG = {
 
   // Agent config
   MAX_ITERATIONS: 15,
-  MODEL_PROVIDER: "openai" as "openai" | "anthropic",
-  MODEL_NAME: "gpt-5-mini" as "gpt-5-mini" | "claude-opus-4-6",
+  MODEL_PROVIDER: "anthropic" as "openai" | "anthropic",
+  MODEL_NAME: "claude-opus-4-6" as "gpt-5-mini" | "claude-opus-4-6",
   TEMPERATURE: 1,
 
   // Server
