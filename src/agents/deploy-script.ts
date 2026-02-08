@@ -21,7 +21,7 @@ Foundry Script pattern:
 - Import "forge-std/Script.sol" and ALWAYS the attack contract from "../src/Contract.sol" 
 - The script contract MUST be named AttackScript and inherit from Script
 - Define a single run() external function containing all logic
-- Wrap all on-chain actions between vm.startBroadcast() and vm.stopBroadcast()
+- Wrap all on-chain actions between vm.startBroadcast() and vm.stopBroadcast(), you are not ALLOWED to use other vm.() calls.
 
 Requirements:
 - Use pragma solidity ^0.8.13
