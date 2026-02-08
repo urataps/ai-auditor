@@ -3,9 +3,8 @@ import {
   HumanMessagePromptTemplate,
   SystemMessagePromptTemplate,
 } from "@langchain/core/prompts";
-import { ChatOpenAI } from "@langchain/openai";
 import { RunnableSequence } from "@langchain/core/runnables";
-import { CONFIG } from "../config";
+import { createModel } from "./model";
 
 export function attackPlaner() {
   const systemMsg = `You are a smart contract security expert. You analyze Ethernaut CTF levels and produce a structured attack plan that a code-generation agent will use to write the exploit contract.
@@ -41,10 +40,7 @@ Be precise. The code generator will follow these instructions literally.`;
     HumanMessagePromptTemplate.fromTemplate(userMsg),
   ]);
 
-  const model = new ChatOpenAI({
-    temperature: CONFIG.TEMPERATURE,
-    modelName: CONFIG.MODEL_NAME,
-  });
+  const model = createModel();
 
   return RunnableSequence.from([prompt, model]);
 }

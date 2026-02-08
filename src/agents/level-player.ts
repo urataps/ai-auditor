@@ -1,4 +1,3 @@
-import { ChatOpenAI } from "@langchain/openai";
 import {
   ChatPromptTemplate,
   MessagesPlaceholder,
@@ -6,6 +5,7 @@ import {
 import { createToolCallingAgent, AgentExecutor } from "langchain/agents";
 import { blockchainTools } from "../tools/blockchain/index";
 import { CONFIG } from "../config";
+import { createModel } from "./model";
 
 const SYSTEM_PROMPT = `You are an expert smart contract security researcher playing the Ethernaut CTF game.
 You are interacting with a LIVE Ethereum blockchain (local Anvil devnet).
@@ -43,10 +43,7 @@ export function createLevelPlayerAgent(
   instanceAddress: string,
   playerAddress: string,
 ): AgentExecutor {
-  const llm = new ChatOpenAI({
-    temperature: CONFIG.TEMPERATURE,
-    modelName: CONFIG.MODEL_NAME,
-  });
+  const llm = createModel();
 
   const prompt = ChatPromptTemplate.fromMessages([
     ["system", SYSTEM_PROMPT],

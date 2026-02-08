@@ -9,7 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@langchain/core": "^0.3.57",
+    "@langchain/core": "^0.3.80",
+    "@langchain/anthropic": "^0.3.34",
     "@langchain/openai": "^0.5.12",
     "@types/express": "^5.0.6",
     "dotenv": "^16.5.0",

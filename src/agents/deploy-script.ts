@@ -3,9 +3,8 @@ import {
   HumanMessagePromptTemplate,
   SystemMessagePromptTemplate,
 } from "@langchain/core/prompts";
-import { ChatOpenAI } from "@langchain/openai";
 import { RunnableSequence } from "@langchain/core/runnables";
-import { CONFIG } from "../config";
+import { createModel } from "./model";
 
 export function deployScriptAgent() {
   const systemMsg = `You are an expert Solidity developer generating Foundry deployment scripts for the Ethernaut CTF wargame.
@@ -19,7 +18,7 @@ You will receive:
 Your task: Generate a Foundry Script that deploys the attack contract and performs any additional calls needed to complete the level.
 
 Foundry Script pattern:
-- Import "forge-std/Script.sol" and always the attack contract from "../src/Contract.sol" 
+- Import "forge-std/Script.sol" and ALWAYS the attack contract from "../src/Contract.sol" 
 - The script contract MUST be named AttackScript and inherit from Script
 - Define a single run() external function containing all logic
 - Wrap all on-chain actions between vm.startBroadcast() and vm.stopBroadcast()
@@ -43,10 +42,7 @@ Output ONLY valid Solidity source code!!!`;
     HumanMessagePromptTemplate.fromTemplate(userMsg),
   ]);
 
-  const model = new ChatOpenAI({
-    temperature: CONFIG.TEMPERATURE,
-    modelName: CONFIG.MODEL_NAME,
-  });
+  const model = createModel();
 
   return RunnableSequence.from([prompt, model]);
 }
